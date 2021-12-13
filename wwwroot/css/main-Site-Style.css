@@ -46,9 +46,9 @@ a {
     color: var(--secondary-color);
 }
 
-    a:hover {
-        color: var(--dark-color);
-    }
+a:hover {
+    color: var(--dark-color);
+}
 
 /* button styling */
 .btn {
@@ -56,11 +56,11 @@ a {
     background-color: var(--dark-color);
 }
 
-    .btn:hover {
-        color: var(--dark-color);
-        background-color: var(--secondary-color);
-        font-weight: 500;
-    }
+.btn:hover {
+    color: var(--dark-color);
+    background-color: var(--secondary-color);
+    font-weight: 500;
+}
 
 /* navbar Styling having to overide bootstrap */
 #app-name-icon {
@@ -137,6 +137,11 @@ main > .container {
 .lead {
     font-size: 0.9em;
 }
+
+.techStackImg {
+    width: 48px;
+}
+
 
 
 /* Prism custom JS */
