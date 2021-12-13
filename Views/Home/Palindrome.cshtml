@@ -1,0 +1,53 @@
+﻿@model PalindromeMVC.Models.PalindromeClass
+
+
+<!-- Main Body Section -->
+<main class="flex-shrink-0 pt-3">
+	<div class="container mt-5">
+		<div class="row row-cols-1 row-cols-lg-2">
+			<div class="col col-lg-4 border-end border-2">
+				<h1>Backtrack: A coding project</h1>
+				<h4 class="lead">
+					Backtrack starts by taking the string to be reversed as input from the user. After that, the length of the string is calculated and stored in a variable, for example, 'revString'. 
+				</h4>
+				<h2 class="mt-5 border-bottom border-2">Instructions</h2>
+				<p>1. Enter a String.</p>
+				<p>2. Press the Backtrack It button.</p>
+				<p>3. The The string will be reversed</p>
+			</div>
+			<div class="col col-lg-8">
+				<div>
+					<h1>Enter A string to Reverse</h1>
+
+					@*Form Goes here*@
+					<form class="row gy-2 gx-3" asp-action="Palindrome" asp-controller="Home" method="post">
+						<div class="col">
+							<input asp-for="InputWord" type="text" class="form-control" value="@Model.InputWord" placeholder="type a word or phrase"/>
+						</div>
+
+						<div class="col-12 d-flex align-items-center justify-content-start justify-content-lg-end">
+							<button id="btnSubmit" type="submit" class="btn btn-dark btn-lg">
+								Palindrome Test
+							</button>
+						</div>
+					</form>
+					<h5 class="mt-5 border-bottom border-2">Reversed Result</h5>
+					<div class="col">
+						<p class="form-control">@Model.RevWord</p>
+					</div>
+
+					<h2 class="mt-5 border-bottom border-2">Palindrome Result</h2>
+					<div class="table-responsive">
+						<p id="results">
+							@Model.Message
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+
+
+

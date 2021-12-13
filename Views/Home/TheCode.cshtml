@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewData["Title"] = "TheCode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Main Body Section -->
+<main class="flex-shrink-0">
+    <div class="container py-5 pt-5 mt-5">
+        <h2 class="tittle border-1 border-bottom border-dark">The Code for Project Palindrome</h2>
+        <div class="row row-cols-1 row-cols-lg-2">
+            <div class="col-lg-8">
+                <pre class="line-numbers"><code class="language-javascript">
+                    // Pseudo code
+                    // --------------------------------------------------
+                    // 1. Get the user input from the string they provide.
+                    // 2. Loop through the string
+                    // 3. make sure that only strings can be used and remove any space from the inpt 
+                    // 4. If the string is a Palindrome then print a congrats message to the sceen. 
+                    // 5. Else print a fail message Palindrome to the screen
+                    // --------------------------------------------------
+
+                    // Get the user input from the string they provide.
+                    // controller function 
+                    function getValue() {
+
+                        // Geting the user input from the string they provide.
+                        let userString = document.getElementById('user-string').value;
+
+                        // Get the value of the user's revirsed string
+                        let palindromeString = checkPalindrone(userString);
+
+                        // Display to the screen. 
+                        displayMessage(palindromeString);
+                    }
+
+                    function checkPalindrone(userString) {
+
+                        // Clean up all of the spaces and special characters in the user input. 
+                        let cleanRev = userString.replace(/\s/g, "");
+                        // Reverse the user input
+                        let reversed = cleanRev.split("").reverse().join("");
+                        // Empty string to save the output message 
+                        let palindromeString = "";
+
+                        // The conditional statement to test the user input  
+                        if (userString == reversed) {
+                            palindromeString = `Yay you did it, Your word: ${reversed} is a Palindrome`;
+                        } else {
+                            palindromeString = `Aww sorry your word: ${cleanRev} is not a Palindrome`;
+                        }
+                        // return the output message
+                        return palindromeString;
+                    }
+
+                    // Display the string in the alert on the page
+                    // View function 
+                    function displayMessage(palindromeString, revString) {
+
+                        // Get the string message element 
+                        const stringMessage = document.getElementById('resultString');
+
+                        // Write to the page 
+                        stringMessage.innerText = palindromeString;
+
+                        // Make the String Message area visable
+                        stringResults.classList.remove('invisible');
+                    }
+
+                    // Sellect the the Palindrome? bution and run the program. 
+                    const submitBtn = document.getElementById('btn-submit');
+
+                    // on lcick the Palindrome? button will run he program
+                    submitBtn.addEventListener('click', function () {
+                        getValue();
+                    })
+                </code></pre>
+            </div>
+            <div class="col-lg-4">
+                <p>The code is struched in 3 functione and one control statment</p>
+                <h5>Project Palindrome Presented using <span><a target="_blank" href="https://prismjs.com/index.html">Prism.js</a></span></h5>
+                <p class="lead">The goal of this project is to input a string and use a function to check if it is a palindrome.
+                    A palindrome is a word or phrase that reads the same backward and forward. When palindromes are the length of a sentence, they ignore capitalization, punctuation, and word boundaries. 
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
+    </script>
+
+<!-- font Awesome -->
+<script src="https://kit.fontawesome.com/f697b4ae1b.js" crossorigin="anonymous"></script>
+
+<!-- Prism JS File -->
+<script src="/js/prism.js"></script>
+<script>
+    Prism.plugins.NormalizeWhitespace.setDefaults({
+        'remove-trailing': true,
+        'remove-indent': true,
+        'left-trim': true,
+        'right-trim': true
+    })
+</script>
+
