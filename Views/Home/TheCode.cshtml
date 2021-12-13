@@ -20,60 +20,88 @@
                     // 5. Else print a fail message Palindrome to the screen
                     // --------------------------------------------------
 
-                    // Get the user input from the string they provide.
-                    // controller function 
-                    function getValue() {
+                    using Microsoft.AspNetCore.Mvc;
+                    using Microsoft.Extensions.Logging;
+                    using PalindromeMVC.Models;
+                    using System.Diagnostics;
+                    using System.Text.RegularExpressions;
 
-                        // Geting the user input from the string they provide.
-                        let userString = document.getElementById('user-string').value;
+                    namespace PalindromeMVC.Controllers
+                    {
+                        public class HomeController : Controller
+                        {
+                            private readonly ILogger<HomeController> _logger;
 
-                        // Get the value of the user's revirsed string
-                        let palindromeString = checkPalindrone(userString);
+                            public HomeController(ILogger<HomeController> logger)
+                            {
+                                _logger = logger;
+                            }
 
-                        // Display to the screen. 
-                        displayMessage(palindromeString);
-                    }
+                            public IActionResult Index()
+                            {
+                                return View();
+                            }
 
-                    function checkPalindrone(userString) {
+                            public IActionResult TheCode()
+                            {
+                                return View();
+                            }
 
-                        // Clean up all of the spaces and special characters in the user input. 
-                        let cleanRev = userString.replace(/\s/g, "");
-                        // Reverse the user input
-                        let reversed = cleanRev.split("").reverse().join("");
-                        // Empty string to save the output message 
-                        let palindromeString = "";
+                            // Get the selected View
+                            [HttpGet]
+                            public IActionResult Palindrome()
+                            {
+                                PalindromeClass model = new();
+                                return View(model);
+                            }
 
-                        // The conditional statement to test the user input  
-                        if (userString == reversed) {
-                            palindromeString = `Yay you did it, Your word: ${reversed} is a Palindrome`;
-                        } else {
-                            palindromeString = `Aww sorry your word: ${cleanRev} is not a Palindrome`;
+                            //New Action - get the post info
+                            [HttpPost]
+                            // Making sure we are operating wihtin our form
+                            [ValidateAntiForgeryToken]
+
+                            // Create a action with the param class i want to full info from
+                            public IActionResult Palindrome(PalindromeClass palindrome)
+                            {
+                                // Get our input
+                                string inputWord = palindrome.InputWord;
+
+                                // Reverse the word
+                                string revWord = "";
+
+                                // The palindrome algo using a for loop
+                                for (int i = inputWord.Length - 1; i >= 0; i--)
+                                {
+                                    revWord += inputWord[i];
+                                }
+                                // Setting the Class var RevWord to revWord
+                                palindrome.RevWord = revWord;
+
+                                // Using Regex to clean up the words 
+                                revWord = Regex.Replace(revWord.ToLower(), "[^a-zAZ0-9]+", "");
+                                inputWord = Regex.Replace(inputWord.ToLower(), "[^a-zAZ0-9]+", "");
+
+                                //Eval the revWord against inputWord
+                                if (revWord == inputWord)
+                                {
+                                    palindrome.IsPalindrome = true;
+                                    palindrome.Message = $"Success, your word {palindrome.InputWord} is a Palindrome";
+                                } else
+                                {
+                                    palindrome.IsPalindrome = false;
+                                    palindrome.Message = $"Sorry, your word {palindrome.InputWord} is Not a Palindrome";
+                                }
+                                return View(palindrome);
+                            }
+
+
+                            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+                            public IActionResult Error()
+                            {
+                                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                            }
                         }
-                        // return the output message
-                        return palindromeString;
                     }
-
-                    // Display the string in the alert on the page
-                    // View function 
-                    function displayMessage(palindromeString, revString) {
-
-                        // Get the string message element 
-                        const stringMessage = document.getElementById('resultString');
-
-                        // Write to the page 
-                        stringMessage.innerText = palindromeString;
-
-                        // Make the String Message area visable
-                        stringResults.classList.remove('invisible');
-                    }
-
-                    // Sellect the the Palindrome? bution and run the program. 
-                    const submitBtn = document.getElementById('btn-submit');
-
-                    // on lcick the Palindrome? button will run he program
-                    submitBtn.addEventListener('click', function () {
-                        getValue();
-                    })
                 </code></pre>
             </div>
             <div class="col-lg-4">
@@ -86,14 +114,6 @@
         </div>
     </div>
 </main>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
-    </script>
-
-<!-- font Awesome -->
-<script src="https://kit.fontawesome.com/f697b4ae1b.js" crossorigin="anonymous"></script>
 
 <!-- Prism JS File -->
 <script src="/js/prism.js"></script>
